@@ -56,6 +56,8 @@ public class UI extends JFrame implements ActionListener {
     private final JComboBox fontSize, fontType;
     private final JMenu menuFile, menuEdit, menuFind, menuAbout;
 
+    private JMenu menuTools = new JMenu("Tools");
+
     private final JMenuItem newFile, openFile, saveFile, close, cut, copy, paste, clearFile, selectAll, quickFind,
             aboutMe, aboutSoftware, wordWrap;
     private final JToolBar mainToolbar;
