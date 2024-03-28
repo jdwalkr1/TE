@@ -54,11 +54,7 @@ public class UI extends JFrame implements ActionListener {
     private final JTextArea textArea;
     private final JMenuBar menuBar;
     private final JComboBox fontSize, fontType;
-    private final JMenu menuFile;
-    private final JMenu menuEdit;
-    private final JMenu menuFind;
-    private final JMenu menuAbout;
-    private JMenu menuTools = null;
+    private final JMenu menuFile, menuEdit, menuFind, menuAbout;
     private final JMenuItem newFile, openFile, saveFile, close, cut, copy, paste, clearFile, selectAll, quickFind,
             aboutMe, aboutSoftware, wordWrap;
     private final JToolBar mainToolbar;
@@ -136,7 +132,6 @@ public class UI extends JFrame implements ActionListener {
         menuFile = new JMenu("File");
         menuEdit = new JMenu("Edit");
         menuFind = new JMenu("Search");
-        menuTools = new JMenu("Tools");
         menuAbout = new JMenu("About");
         //Font Settings menu
 
@@ -149,20 +144,12 @@ public class UI extends JFrame implements ActionListener {
         quickFind = new JMenuItem("Quick", searchIcon);
         aboutMe = new JMenuItem("About Me", aboutMeIcon);
         aboutSoftware = new JMenuItem("About Software", aboutIcon);
-        JMenuItem wordCount= new JMenuItem("Word Count");
 
-        //Setting the Tools Menu
-        //JMenuItem wordCount = new JMenuItem("Word Count");
-        //may change style later
-        menuTools.add(wordCount);
-
-
-        //Setting the MenuBar
         menuBar = new JMenuBar();
         menuBar.add(menuFile);
         menuBar.add(menuEdit);
         menuBar.add(menuFind);
-        menuBar.add(menuTools);
+
         menuBar.add(menuAbout);
 
         this.setJMenuBar(menuBar);
