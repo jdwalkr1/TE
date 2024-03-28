@@ -55,6 +55,7 @@ public class UI extends JFrame implements ActionListener {
     private final JMenuBar menuBar;
     private final JComboBox fontSize, fontType;
     private final JMenu menuFile, menuEdit, menuFind, menuAbout;
+
     private final JMenuItem newFile, openFile, saveFile, close, cut, copy, paste, clearFile, selectAll, quickFind,
             aboutMe, aboutSoftware, wordWrap;
     private final JToolBar mainToolbar;
@@ -89,6 +90,7 @@ public class UI extends JFrame implements ActionListener {
     private SupportedKeywords kw = new SupportedKeywords();
     private HighlightText languageHighlighter = new HighlightText(Color.GRAY);
     AutoComplete autocomplete;
+
     private boolean hasListener = false;
     private boolean edit = false;
 
