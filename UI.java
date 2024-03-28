@@ -56,6 +56,7 @@ public class UI extends JFrame implements ActionListener {
     private final JComboBox fontSize, fontType;
     private final JMenu menuFile, menuEdit, menuFind, menuAbout;
 
+    //new menu for our implementation
     private JMenu menuTools = new JMenu("Tools");
 
     private final JMenuItem newFile, openFile, saveFile, close, cut, copy, paste, clearFile, selectAll, quickFind,
@@ -148,12 +149,14 @@ public class UI extends JFrame implements ActionListener {
         quickFind = new JMenuItem("Quick", searchIcon);
         aboutMe = new JMenuItem("About Me", aboutMeIcon);
         aboutSoftware = new JMenuItem("About Software", aboutIcon);
+        //our implementations
+        JMenuItem wordCount = new JMenuItem("Word Count");
 
         menuBar = new JMenuBar();
         menuBar.add(menuFile);
         menuBar.add(menuEdit);
         menuBar.add(menuFind);
-
+        menuBar.add(menuTools);
         menuBar.add(menuAbout);
 
         this.setJMenuBar(menuBar);
@@ -265,7 +268,9 @@ public class UI extends JFrame implements ActionListener {
         aboutMe.addActionListener(this);
         aboutMe.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
         menuAbout.add(aboutMe);
+        //Toools
 
+        menuTools.add(wordCount);
         // About Software
         aboutSoftware.addActionListener(this);
         aboutSoftware.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
