@@ -61,6 +61,8 @@ public class UI extends JFrame implements ActionListener {
 
     private final JMenuItem newFile, openFile, saveFile, close, cut, copy, paste, clearFile, selectAll, quickFind,
             aboutMe, aboutSoftware, wordWrap;
+
+    JMenuItem wordCount = new JMenuItem("Word Count");
     private final JToolBar mainToolbar;
     JButton newButton, openButton, saveButton, clearButton, quickButton, aboutMeButton, aboutButton, closeButton, boldButton, italicButton;
     private final Action selectAllAction;
@@ -150,7 +152,7 @@ public class UI extends JFrame implements ActionListener {
         aboutMe = new JMenuItem("About Me", aboutMeIcon);
         aboutSoftware = new JMenuItem("About Software", aboutIcon);
         //our implementations
-        JMenuItem wordCount = new JMenuItem("Word Count");
+
 
         menuBar = new JMenuBar();
         menuBar.add(menuFile);
@@ -269,7 +271,8 @@ public class UI extends JFrame implements ActionListener {
         aboutMe.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
         menuAbout.add(aboutMe);
         //Toools
-
+        wordCount.addActionListener(this);
+        wordCount.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, KeyEvent.CTRL_DOWN_MASK));
         menuTools.add(wordCount);
         // About Software
         aboutSoftware.addActionListener(this);
@@ -538,7 +541,11 @@ public class UI extends JFrame implements ActionListener {
         // Find
         if (e.getSource() == quickFind || e.getSource() == quickButton) {
             new Find(textArea);
-        } // About Me
+        }
+        else if (e.getSource() == wordCount){
+            new WordCount(textArea);
+        }
+        // About Me
         else if (e.getSource() == aboutMe || e.getSource() == aboutMeButton) {
             new About(this).me();
         } // About Software
