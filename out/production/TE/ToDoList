@@ -2,3 +2,5 @@
 2. Add the "WordCount" as a menuItem to the JMenu
 3. Implement the WordCount as a seperate popup-GUI
 4. Implement the WordCount main methods
+//update
+//remember to update check for Brackets

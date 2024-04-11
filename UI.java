@@ -38,6 +38,7 @@
 // package simplejavatexteditor;
 
 import javax.swing.*;
+import javax.swing.text.DefaultEditorKit;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.BufferedWriter;
@@ -46,7 +47,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
-import javax.swing.text.DefaultEditorKit;
+
+
 
 public class UI extends JFrame implements ActionListener {
 
@@ -64,13 +66,15 @@ public class UI extends JFrame implements ActionListener {
     //our additions to the Tools menu
     JMenuItem wordCount = new JMenuItem("Word Count");
     JMenuItem charCount = new JMenuItem("Character Count");
+
+    JMenuItem checkBracket = new JMenuItem("Check for Brackets");
     private final JToolBar mainToolbar;
     JButton newButton, openButton, saveButton, clearButton, quickButton, aboutMeButton, aboutButton, closeButton, boldButton, italicButton;
     private final Action selectAllAction;
 
     //setup icons - Bold and Italic
-     private final ImageIcon boldIcon = new ImageIcon("icons/bold.png");
-     private final ImageIcon italicIcon = new ImageIcon("icons/italic.png");
+    private final ImageIcon boldIcon = new ImageIcon("icons/bold.png");
+    private final ImageIcon italicIcon = new ImageIcon("icons/italic.png");
 
     // setup icons - File Menu
     private final ImageIcon newIcon = new ImageIcon("icons/new.png");
@@ -101,6 +105,9 @@ public class UI extends JFrame implements ActionListener {
     private boolean edit = false;
 
     public UI() {
+        //new code
+
+
         // Set the initial size of the window
         setSize(800, 500);
 
@@ -276,10 +283,13 @@ public class UI extends JFrame implements ActionListener {
         wordCount.addActionListener(this);
         wordCount.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, KeyEvent.CTRL_DOWN_MASK));
         menuTools.add(wordCount);
-
+        //charCount
         charCount.addActionListener(this);
         charCount.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
         menuTools.add(charCount);
+
+        checkBracket.addActionListener(this);
+        menuTools.add(checkBracket);
         // About Software
         aboutSoftware.addActionListener(this);
         aboutSoftware.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
@@ -521,14 +531,14 @@ public class UI extends JFrame implements ActionListener {
             saveFile();
         }// If the source of the event was the "Bold" button
         else if (e.getSource() == boldButton) {
-            if (textArea.getFont().getStyle() == Font.BOLD){
+            if (textArea.getFont().getStyle() == Font.BOLD) {
                 textArea.setFont(textArea.getFont().deriveFont(Font.PLAIN));
             } else {
                 textArea.setFont(textArea.getFont().deriveFont(Font.BOLD));
             }
         }// If the source of the event was the "Italic" button
         else if (e.getSource() == italicButton) {
-            if (textArea.getFont().getStyle() == Font.ITALIC){
+            if (textArea.getFont().getStyle() == Font.ITALIC) {
                 textArea.setFont(textArea.getFont().deriveFont(Font.PLAIN));
             } else {
                 textArea.setFont(textArea.getFont().deriveFont(Font.ITALIC));
@@ -547,12 +557,13 @@ public class UI extends JFrame implements ActionListener {
         // Find
         if (e.getSource() == quickFind || e.getSource() == quickButton) {
             new Find(textArea);
-        }
-        else if (e.getSource() == wordCount){
+        } else if (e.getSource() == wordCount) {
             new WordCount(textArea);
-        }
-        else if (e.getSource() == charCount){
+        } else if (e.getSource() == charCount) {
             new CharacterCount(textArea);
+        }
+        else if (e.getSource() == checkBracket){
+            new CheckForBrackets(textArea);
         }
         // About Me
         else if (e.getSource() == aboutMe || e.getSource() == aboutMeButton) {
@@ -580,6 +591,12 @@ public class UI extends JFrame implements ActionListener {
             textArea.selectAll();
         }
     }
+    //our addition to open open up the bracket checker
+    //public void openBracketCheckerUI() {
+     //   JTextArea textArea = new JTextArea();
+     //   CheckForBrackets bracketChecker = new CheckForBrackets(textArea);
+      //  bracketChecker.setVisible(true); // Make the bracket checker UI visible
+    //}
 
     private void saveFile() {
         // Open a file chooser
@@ -588,8 +605,8 @@ public class UI extends JFrame implements ActionListener {
         int option = fileChoose.showSaveDialog(this);
 
         /*
-             * ShowSaveDialog instead of showOpenDialog if the user clicked OK
-             * (and not cancel)
+         * ShowSaveDialog instead of showOpenDialog if the user clicked OK
+         * (and not cancel)
          */
         if (option == JFileChooser.APPROVE_OPTION) {
             try {
@@ -607,6 +624,6 @@ public class UI extends JFrame implements ActionListener {
                 System.err.println(ex.getMessage());
             }
         }
-    }
 
+    }
 }

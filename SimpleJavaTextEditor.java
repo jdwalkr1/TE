@@ -22,6 +22,7 @@ import javax.swing.JTextPane;
 
 public class SimpleJavaTextEditor extends JTextPane {
 
+
     private static final long serialVersionUID = 1L;
     public final static String AUTHOR_EMAIL = "hi@ph7.me";
     public final static String NAME = "PHNotePad";
