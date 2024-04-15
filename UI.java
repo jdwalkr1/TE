@@ -60,11 +60,13 @@ public class UI extends JFrame implements ActionListener {
 
     //new menu for our implementation
     private JMenu menuTools = new JMenu("Tools");
+    //menu for code Snippets
+    private JMenu menuCodeSnippets = new JMenu ("Code Snippets");
 
     private final JMenuItem newFile, openFile, saveFile, close, cut, copy, paste, clearFile, selectAll, quickFind,
             aboutMe, aboutSoftware, wordWrap;
     //our additions to the Tools menu
-    JMenuItem wordCount = new JMenuItem("Word Count");
+    //JMenuItem wordCount = new JMenuItem("Word Count");
     JMenuItem charCount = new JMenuItem("Character Count");
 
     JMenuItem checkBracket = new JMenuItem("Check for Brackets");
@@ -167,6 +169,7 @@ public class UI extends JFrame implements ActionListener {
         menuBar.add(menuEdit);
         menuBar.add(menuFind);
         menuBar.add(menuTools);
+        menuBar.add(menuCodeSnippets);
         menuBar.add(menuAbout);
 
         this.setJMenuBar(menuBar);
@@ -280,13 +283,13 @@ public class UI extends JFrame implements ActionListener {
         menuAbout.add(aboutMe);
         //Toools
         //our additions to the project, chars
-        wordCount.addActionListener(this);
-        wordCount.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, KeyEvent.CTRL_DOWN_MASK));
-        menuTools.add(wordCount);
+        //wordCount.addActionListener(this);
+        //wordCount.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, KeyEvent.CTRL_DOWN_MASK));
+        //menuTools.add(wordCount);
         //charCount
-        charCount.addActionListener(this);
-        charCount.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
-        menuTools.add(charCount);
+        //charCount.addActionListener(this);
+        //charCount.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
+        //menuTools.add(charCount);
 
         checkBracket.addActionListener(this);
         menuTools.add(checkBracket);
@@ -408,9 +411,25 @@ public class UI extends JFrame implements ActionListener {
                 textArea.setFont(font1);
             }
         });
-        //FONT SIZE SETTINGS SECTION END
-    }
+//The Panel for the word count
+// Create a panel to hold character count and word count labels
+        JPanel bottomPanel = new JPanel(new BorderLayout());
+        JPanel countPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
+        // Create instances of WordCount and CharacterCount passing the textArea
+        WordCount wordCountPanel = new WordCount(textArea);
+        CharacterCount charCountPanel = new CharacterCount(textArea);
+
+        // Add both count panels to the countPanel
+        countPanel.add(wordCountPanel);
+        countPanel.add(Box.createHorizontalStrut(20)); // Add some space between the labels
+        countPanel.add(charCountPanel);
+
+        // Add the countPanel to the bottomPanel
+        bottomPanel.add(countPanel, BorderLayout.CENTER);
+        getContentPane().add(bottomPanel, BorderLayout.SOUTH);
+        // Existing code...
+    }
     @Override
     protected void processWindowEvent(WindowEvent e) {
         if (e.getID() == WindowEvent.WINDOW_CLOSING) {
@@ -557,10 +576,6 @@ public class UI extends JFrame implements ActionListener {
         // Find
         if (e.getSource() == quickFind || e.getSource() == quickButton) {
             new Find(textArea);
-        } else if (e.getSource() == wordCount) {
-            new WordCount(textArea);
-        } else if (e.getSource() == charCount) {
-            new CharacterCount(textArea);
         }
         else if (e.getSource() == checkBracket){
             new CheckForBrackets(textArea);
