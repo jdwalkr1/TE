@@ -48,7 +48,7 @@ public class CheckForBrackets extends JFrame {
         setVisible(true);
         updateResult();
     }
-
+    //changes
     private void updateResult() {
         String result = checkBalance();
         resultLabel.setText("<html>" + result.replaceAll("\n", "<br/>") + "</html>"); // Replace newline with HTML line break
