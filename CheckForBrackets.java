@@ -17,6 +17,7 @@ public class CheckForBrackets extends JFrame {
         setLocationRelativeTo(textArea);
 
         resultLabel = new JLabel();
+        resultLabel.setForeground(Color.RED); // Set text color to red
 
         textArea.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -50,7 +51,7 @@ public class CheckForBrackets extends JFrame {
 
     private void updateResult() {
         String result = checkBalance();
-        resultLabel.setText(result);
+        resultLabel.setText("<html>" + result.replaceAll("\n", "<br/>") + "</html>"); // Replace newline with HTML line break
     }
 
     public String checkBalance() {
@@ -69,7 +70,7 @@ public class CheckForBrackets extends JFrame {
                 stack.push(ch);
             } else if (closingBrackets.contains(ch)) {
                 if (stack.isEmpty() || bracketsMap.get(ch) != stack.pop()) {
-                    return "Warning: Missing opening bracket for '" + ch + "' at position " + i + ".";
+                    return "Warning: Missing opening bracket for '<font color='red'>" + ch + "</font>' at position " + i + ".";
                 }
             }
         }
@@ -79,9 +80,9 @@ public class CheckForBrackets extends JFrame {
             while (!stack.isEmpty()) {
                 char extraOpeningBracket = stack.pop();
                 int position = expression.indexOf(extraOpeningBracket);
-                extraBracketsWarning.append("Warning: Missing closing bracket for '")
+                extraBracketsWarning.append("Warning: Missing closing bracket for '<font color='red'>")
                         .append(extraOpeningBracket)
-                        .append("' at position ")
+                        .append("</font>' at position ")
                         .append(position)
                         .append(".\n");
             }
