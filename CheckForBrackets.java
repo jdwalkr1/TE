@@ -12,7 +12,7 @@ public class CheckForBrackets extends JFrame {
         this.textArea = textArea;
 
         setTitle("Bracket Checker");
-        setSize(300, 100);
+        setSize(400, 100);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(textArea);
 

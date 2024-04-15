@@ -17,39 +17,44 @@ public class CharacterCount extends JFrame {
         setLayout(null);
 
         // Adding components
-        charCountLabel.setBounds(20, 20, 150, 20);
+        charCountLabel.setBounds(20, 20, 200, 20);
 
         add(charCountLabel);
 
         // Set size and visibility
-        setSize(200, 80);
+        setSize(250, 80);
         setLocationRelativeTo(textArea);
         setVisible(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // Add document listener to JTextArea to update character count
+        // Add document listener to JTextArea to update character and word count
         textArea.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                updateCharacterCount();
+                updateCounts();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                updateCharacterCount();
+                updateCounts();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                updateCharacterCount();
+                updateCounts();
             }
         });
+
+        // Update counts initially
+        updateCounts();
     }
 
-    // Method to update the character count label
-    private void updateCharacterCount() {
+    // Method to update the character and word count labels
+    private void updateCounts() {
         String text = textArea.getText();
-        int charCount = text.length();
+        // Remove whitespace from the text
+        String trimmedText = text.replaceAll("\\s", "");
+        int charCount = trimmedText.length();
         charCountLabel.setText("Character Count: " + charCount);
     }
 }
