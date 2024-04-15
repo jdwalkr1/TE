@@ -2,9 +2,8 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public class CharacterCount extends JFrame {
+public class CharacterCount extends JPanel {
 
-    private static final long serialVersionUID = 1L;
     private JLabel charCountLabel;
     private JTextArea textArea;
 
@@ -13,48 +12,35 @@ public class CharacterCount extends JFrame {
 
         charCountLabel = new JLabel("Character Count: 0");
 
-        // Set Layout to null
-        setLayout(null);
-
         // Adding components
-        charCountLabel.setBounds(20, 20, 200, 20);
-
         add(charCountLabel);
 
-        // Set size and visibility
-        setSize(250, 80);
-        setLocationRelativeTo(textArea);
-        setVisible(true);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-        // Add document listener to JTextArea to update character and word count
+        // Add document listener to JTextArea to update character count in real-time
         textArea.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                updateCounts();
+                updateCharacterCount();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                updateCounts();
+                updateCharacterCount();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                updateCounts();
+                // Plain text components do not fire these events
             }
         });
 
-        // Update counts initially
-        updateCounts();
+        // Update character count initially
+        updateCharacterCount();
     }
 
-    // Method to update the character and word count labels
-    private void updateCounts() {
+    // Method to update the character count label
+    private void updateCharacterCount() {
         String text = textArea.getText();
-        // Remove whitespace from the text
-        String trimmedText = text.replaceAll("\\s", "");
-        int charCount = trimmedText.length();
+        int charCount = text.length();
         charCountLabel.setText("Character Count: " + charCount);
     }
 }

@@ -2,9 +2,8 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public class WordCount extends JFrame {
+public class WordCount extends JPanel {
 
-    private static final long serialVersionUID = 1L;
     private JLabel wordCountLabel;
     private JTextArea textArea;
 
@@ -13,12 +12,7 @@ public class WordCount extends JFrame {
 
         wordCountLabel = new JLabel("Word Count: 0");
 
-        // Set Layout to null
-        setLayout(null);
-
         // Adding components
-        wordCountLabel.setBounds(10, 10, 150, 20);
-
         add(wordCountLabel);
 
         // Add document listener to update word count in real-time
@@ -39,12 +33,6 @@ public class WordCount extends JFrame {
             }
         });
 
-        // Set size and visibility
-        setSize(200, 80);
-        setLocationRelativeTo(textArea);
-        setVisible(true);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
         // Initial word count update
         updateWordCount();
     }
@@ -54,10 +42,5 @@ public class WordCount extends JFrame {
         String text = textArea.getText();
         int wordCount = text.isEmpty() ? 0 : text.trim().split("\\s+").length;
         wordCountLabel.setText("Word Count: " + wordCount);
-    }
-
-    public static void main(String[] args) {
-        JTextArea textArea = new JTextArea();
-        new WordCount(textArea);
     }
 }
