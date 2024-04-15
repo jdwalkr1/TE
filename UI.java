@@ -67,7 +67,10 @@ public class UI extends JFrame implements ActionListener {
             aboutMe, aboutSoftware, wordWrap;
     //our additions to the Tools menu
     //JMenuItem wordCount = new JMenuItem("Word Count");
-    JMenuItem charCount = new JMenuItem("Character Count");
+    //JMenuItem charCount = new JMenuItem("Character Count");
+
+    JMenuItem addJavaMain = new JMenuItem("Java Main");
+    JMenuItem addFileReader = new JMenuItem("Read File");
 
     JMenuItem checkBracket = new JMenuItem("Check for Brackets");
     private final JToolBar mainToolbar;
@@ -291,6 +294,13 @@ public class UI extends JFrame implements ActionListener {
         //charCount.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
         //menuTools.add(charCount);
 
+        //code snippets
+        addJavaMain.addActionListener(this);
+        menuCodeSnippets.add(addJavaMain);
+        //add file reader
+        addFileReader.addActionListener(this);
+        menuCodeSnippets.add(addFileReader);
+        //adding bracket
         checkBracket.addActionListener(this);
         menuTools.add(checkBracket);
         // About Software
@@ -577,8 +587,18 @@ public class UI extends JFrame implements ActionListener {
         if (e.getSource() == quickFind || e.getSource() == quickButton) {
             new Find(textArea);
         }
+        //CheckBracket
         else if (e.getSource() == checkBracket){
             new CheckForBrackets(textArea);
+        }
+        //Add Java Main
+        else if (e.getSource() == addJavaMain){
+            JavaMainSnippet javaMainSnippet = new JavaMainSnippet(textArea);
+            javaMainSnippet.insertMainMethod();
+        }
+        else if (e.getSource() == addFileReader){
+            JavaFileReaderSnippet javaFileReaderSnippet = new JavaFileReaderSnippet(textArea);
+            javaFileReaderSnippet.insertFileReaderMethod();
         }
         // About Me
         else if (e.getSource() == aboutMe || e.getSource() == aboutMeButton) {
