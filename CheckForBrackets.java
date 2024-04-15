@@ -10,15 +10,13 @@ public class CheckForBrackets extends JFrame {
 
     public CheckForBrackets(JTextArea textArea) {
         this.textArea = textArea;
-
+        //setting the size and parameters for Bracket check
         setTitle("Bracket Checker");
-        setSize(400, 100);
+        setSize(400, 70);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(textArea);
 
         resultLabel = new JLabel();
-        resultLabel.setForeground(Color.RED); // Set text color to red
-
         textArea.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -35,7 +33,7 @@ public class CheckForBrackets extends JFrame {
                 updateResult();
             }
         });
-
+        //creating the panels and border layout
         JPanel mainPanel = new JPanel(new BorderLayout());
         JPanel resultPanel = new JPanel(new BorderLayout());
         resultPanel.add(new JLabel("Result: "), BorderLayout.WEST);
@@ -48,12 +46,18 @@ public class CheckForBrackets extends JFrame {
         setVisible(true);
         updateResult();
     }
-    //changes
+    //update with colored warnings
+
     private void updateResult() {
         String result = checkBalance();
+        if (result.startsWith("Warning")) {
+            resultLabel.setForeground(Color.RED);
+        } else {
+            resultLabel.setForeground(Color.GREEN);
+        }
         resultLabel.setText("<html>" + result.replaceAll("\n", "<br/>") + "</html>"); // Replace newline with HTML line break
     }
-
+    //the main method that uses a stack to implement the check
     public String checkBalance() {
         String expression = textArea.getText();
         Stack<Character> stack = new Stack<>();
@@ -74,7 +78,7 @@ public class CheckForBrackets extends JFrame {
                 }
             }
         }
-
+        //if the stack isn't popped, the warning is shown
         if (!stack.isEmpty()) {
             StringBuilder extraBracketsWarning = new StringBuilder();
             while (!stack.isEmpty()) {
