@@ -39,6 +39,7 @@
 
 import javax.swing.*;
 import javax.swing.text.DefaultEditorKit;
+import javax.swing.undo.UndoManager; // Import for UndoManager            
 import java.awt.*;
 import java.awt.event.*;
 import java.io.BufferedWriter;
@@ -76,6 +77,7 @@ public class UI extends JFrame implements ActionListener {
     private final JToolBar mainToolbar;
     JButton newButton, openButton, saveButton, clearButton, quickButton, aboutMeButton, aboutButton, closeButton, boldButton, italicButton;
     private final Action selectAllAction;
+    private final UndoManager undoManager;
 
     //setup icons - Bold and Italic
     private final ImageIcon boldIcon = new ImageIcon("icons/bold.png");
@@ -125,6 +127,9 @@ public class UI extends JFrame implements ActionListener {
         // center the frame on the monitor
         setLocationRelativeTo(null);
 
+        // Initialize UndoManager            
+        undoManager = new UndoManager();
+
         // Set a default font for the TextArea
         textArea = new JTextArea("", 0, 0);
         textArea.setFont(new Font("Century Gothic", Font.PLAIN, 12));
@@ -155,6 +160,29 @@ public class UI extends JFrame implements ActionListener {
         menuAbout = new JMenu("About");
         //Font Settings menu
 
+        
+         // Add Undo and Redo menu items to Edit menu
+         JMenuItem undoItem = new JMenuItem("Undo");
+         undoItem.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                 if (undoManager.canUndo()) {
+                     undoManager.undo();
+                 }
+             }
+         });
+         JMenuItem redoItem = new JMenuItem("Redo");
+         redoItem.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                 if (undoManager.canRedo()) {
+                     undoManager.redo();
+                 }
+             }
+         });
+         menuEdit.add(undoItem);
+         menuEdit.add(redoItem);
+
         // Set the Items Menu
         newFile = new JMenuItem("New", newIcon);
         openFile = new JMenuItem("Open", openIcon);
@@ -176,6 +204,10 @@ public class UI extends JFrame implements ActionListener {
         menuBar.add(menuAbout);
 
         this.setJMenuBar(menuBar);
+
+     // Register text area with UndoManager for undo/redo functionality            
+      textArea.getDocument().addUndoableEditListener(undoManager);            
+               
 
         // Set Actions:
         selectAllAction = new SelectAllAction("Select All", clearIcon, "Select all text", new Integer(KeyEvent.VK_A),

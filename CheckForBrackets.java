@@ -4,6 +4,9 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.util.*;
 
+//Checks for unclosed brackets
+//returns index of unclosed bracket
+
 public class CheckForBrackets extends JFrame {
     private JTextArea textArea;
     private JLabel resultLabel;
@@ -55,7 +58,7 @@ public class CheckForBrackets extends JFrame {
         } else {
             resultLabel.setForeground(Color.GREEN);
         }
-        resultLabel.setText("<html>" + result.replaceAll("\n", "<br/>") + "</html>"); // Replace newline with HTML line break
+        resultLabel.setText("<html>" + result.replaceAll("\n", "<br/>") + "</html>");
     }
     //the main method that uses a stack to implement the check
     public String checkBalance() {

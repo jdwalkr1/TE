@@ -7,6 +7,8 @@ public class CharacterCount extends JPanel {
     private JLabel charCountLabel;
     private JTextArea textArea;
 
+    //@param textArea to access area to count
+    //method counts the members of the string
     public CharacterCount(JTextArea textArea) {
         this.textArea = textArea;
 
@@ -33,11 +35,11 @@ public class CharacterCount extends JPanel {
             }
         });
 
-        // Update character count initially
+        // Updates the chacacter counter
         updateCharacterCount();
     }
 
-    // Method to update the character count label
+    //To jlabel
     private void updateCharacterCount() {
         String text = textArea.getText();
         int charCount = text.length();

@@ -6,7 +6,8 @@ public class WordCount extends JPanel {
 
     private JLabel wordCountLabel;
     private JTextArea textArea;
-
+    //@param takes textArea to iterate through UI text
+    //returns strings not seperated by spaces
     public WordCount(JTextArea textArea) {
         this.textArea = textArea;
 
