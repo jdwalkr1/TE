@@ -460,19 +460,22 @@ public class UI extends JFrame implements ActionListener {
         JPanel bottomPanel = new JPanel(new BorderLayout());
         JPanel countPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-        // Create instances of WordCount and CharacterCount passing the textArea
+        // Create instances of WordCount, CharacterCount, LineCount
         WordCount wordCountPanel = new WordCount(textArea);
         CharacterCount charCountPanel = new CharacterCount(textArea);
+        LineCount lineCountPanel = new LineCount(textArea);
 
-        // Add both count panels to the countPanel
+        // Adding all panels to the count panel
         countPanel.add(wordCountPanel);
-        countPanel.add(Box.createHorizontalStrut(20)); // Add some space between the labels
+        countPanel.add(Box.createHorizontalStrut(20)); //give it some padding
         countPanel.add(charCountPanel);
+        countPanel.add(Box.createHorizontalStrut(20)); //give it some padding
+        countPanel.add(lineCountPanel);
 
         // Add the countPanel to the bottomPanel
         bottomPanel.add(countPanel, BorderLayout.CENTER);
         getContentPane().add(bottomPanel, BorderLayout.SOUTH);
-        // Existing code...
+
     }
     @Override
     protected void processWindowEvent(WindowEvent e) {

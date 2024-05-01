@@ -66,6 +66,7 @@ public class CheckForBrackets extends JFrame {
     public String checkBalance() {
         String expression = textArea.getText();
         Stack<Character> stack = new Stack<>();
+        Map<Character, Integer> bracketPositions = new HashMap<>();
         Set<Character> openingBrackets = new HashSet<>(Arrays.asList('(', '[', '{'));
         Set<Character> closingBrackets = new HashSet<>(Arrays.asList(')', ']', '}'));
         Map<Character, Character> bracketsMap = new HashMap<>();
@@ -73,13 +74,18 @@ public class CheckForBrackets extends JFrame {
         bracketsMap.put(']', '[');
         bracketsMap.put('}', '{');
 
+        int lineNumber = 1;
         for (int i = 0; i < expression.length(); i++) {
             char ch = expression.charAt(i);
+            if (ch == '\n') {
+                lineNumber++;
+            }
             if (openingBrackets.contains(ch)) {
                 stack.push(ch);
+                bracketPositions.put(ch, lineNumber);
             } else if (closingBrackets.contains(ch)) {
                 if (stack.isEmpty() || bracketsMap.get(ch) != stack.pop()) {
-                    return "Warning: Missing opening bracket for '<font color='red'>" + ch + "</font>' at position " + i + ".";
+                    return "Warning: Missing opening bracket for '<font color='red'>" + ch + "</font>' at line " + lineNumber + ".";
                 }
             }
         }
@@ -88,11 +94,11 @@ public class CheckForBrackets extends JFrame {
             StringBuilder extraBracketsWarning = new StringBuilder();
             while (!stack.isEmpty()) {
                 char extraOpeningBracket = stack.pop();
-                int position = expression.indexOf(extraOpeningBracket);
+                int lineNumberMissingClosing = bracketPositions.get(extraOpeningBracket);
                 extraBracketsWarning.append("Warning: Missing closing bracket for '<font color='red'>")
                         .append(extraOpeningBracket)
-                        .append("</font>' at position ")
-                        .append(position)
+                        .append("</font>' at line ")
+                        .append(lineNumberMissingClosing)
                         .append(".\n");
             }
             return extraBracketsWarning.toString();
@@ -100,4 +106,4 @@ public class CheckForBrackets extends JFrame {
 
         return "The brackets are balanced.";
     }
-}
+    }
