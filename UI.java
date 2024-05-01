@@ -210,8 +210,7 @@ public class UI extends JFrame implements ActionListener {
                
 
         // Set Actions:
-        selectAllAction = new SelectAllAction("Select All", clearIcon, "Select all text", new Integer(KeyEvent.VK_A),
-                textArea);
+        selectAllAction = new SelectAllAction("Select All", clearIcon, "Select all text", KeyEvent.VK_A, textArea);
 
         this.setJMenuBar(menuBar);
 
