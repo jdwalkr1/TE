@@ -10,7 +10,8 @@ import java.util.*;
 public class CheckForBrackets extends JFrame {
     private JTextArea textArea;
     private JLabel resultLabel;
-
+    //instantiates swing window
+    //@param textArea to iterate through text area searching for brackets
     public CheckForBrackets(JTextArea textArea) {
         this.textArea = textArea;
         //setting the size and parameters for Bracket check
@@ -18,7 +19,7 @@ public class CheckForBrackets extends JFrame {
         setSize(400, 70);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(textArea);
-
+        //importing document listener
         resultLabel = new JLabel();
         textArea.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -50,7 +51,7 @@ public class CheckForBrackets extends JFrame {
         updateResult();
     }
     //update with colored warnings
-
+    //changes happen in the mark up languages
     private void updateResult() {
         String result = checkBalance();
         if (result.startsWith("Warning")) {
@@ -61,6 +62,7 @@ public class CheckForBrackets extends JFrame {
         resultLabel.setText("<html>" + result.replaceAll("\n", "<br/>") + "</html>");
     }
     //the main method that uses a stack to implement the check
+    //famous stack exercise
     public String checkBalance() {
         String expression = textArea.getText();
         Stack<Character> stack = new Stack<>();

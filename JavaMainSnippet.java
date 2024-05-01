@@ -2,7 +2,7 @@ import javax.swing.*;
 
 
     public class JavaMainSnippet {
-
+//Java class prints main method onto the textarea
         private JTextArea textArea;
 
         public JavaMainSnippet(JTextArea textArea) {
